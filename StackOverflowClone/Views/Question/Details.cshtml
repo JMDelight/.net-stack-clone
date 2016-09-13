@@ -2,13 +2,25 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model StackOverflowClone.Models.Answer
 
+@using StackOverflowClone
 
+<h3>@ViewBag.Question.Description</h3>
 
-<h3>@Model["question"].Description</h3>
-
-@foreach(var answer in Model["answers"])
+@foreach(var answer in ViewBag.Answers)
 {
     <h5>Answer:@answer.Description</h5>
 
 }
+
+<form method="post">
+    <div class="form-group">
+        <input asp-for="QuestionId" type="hidden" value="@ViewBag.Question.QuestionId" />
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div>
+        <button class="btn btn-success"></button>
+    </div>
+</form>

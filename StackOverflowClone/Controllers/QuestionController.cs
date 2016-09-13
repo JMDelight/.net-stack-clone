@@ -47,12 +47,25 @@ namespace StackOverflowClone.Controllers
         }
         public IActionResult Details(int id)
         {
-            var thisQuestion = this._db.Questions.FirstOrDefault(question => question.Id == id);
-            var questionAnswers = this._db.Answers.Where(answer => answer.QuestionId == id).ToList();
-            Dictionary<string, object> model = new Dictionary<string, object> { };
-            model.Add("question", thisQuestion);
-            model.Add("answers", questionAnswers);
-            return View(model);
+            int questionId = id;
+            ViewBag.Question = this._db.Questions.FirstOrDefault(question => question.QuestionId == questionId);
+            ViewBag.Answers = this._db.Answers.Where(answer => answer.QuestionId == questionId).ToList();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Details (Answer answer) 
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            answer.User = currentUser;
+            _db.Answers.Add(answer);
+            _db.SaveChanges();
+
+            ViewBag.Question = this._db.Questions.FirstOrDefault(question => question.QuestionId == answer.QuestionId);
+            ViewBag.Answers = this._db.Answers.Where(a => a.QuestionId == answer.QuestionId).ToList();
+
+            return View();
+
         }
     }
 }

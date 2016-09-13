@@ -15,8 +15,7 @@
     <ul>
         @foreach (var question in Model)
         {
-            <li><a href="@Url.Action("Details", new { id = question.Id })">@question.Description</a></li>
-            <li>@Html.DisplayFor(modelItem => question.Description)</li>
+            <li><a asp-controller="Question" asp-action="Details" asp-route-id="@question.QuestionId">@question.Description</a> </li>
         }
     </ul>
 }

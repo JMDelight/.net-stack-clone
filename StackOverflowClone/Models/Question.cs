@@ -11,7 +11,7 @@ namespace StackOverflowClone.Models
     public class Question
     {
         [Key]
-        public int Id { get; set; }
+        public int QuestionId { get; set; }
         public string Description { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
