@@ -45,5 +45,14 @@ namespace StackOverflowClone.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Details(int id)
+        {
+            var thisQuestion = this._db.Questions.FirstOrDefault(question => question.Id == id);
+            var questionAnswers = this._db.Answers.Where(answer => answer.QuestionId == id).ToList();
+            Dictionary<string, object> model = new Dictionary<string, object> { };
+            model.Add("question", thisQuestion);
+            model.Add("answers", questionAnswers);
+            return View(model);
+        }
     }
 }

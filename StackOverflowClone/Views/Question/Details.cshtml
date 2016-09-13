@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>@Model["question"].Description</h3>
+
+@foreach(var answer in Model["answers"])
+{
+    <h5>Answer:@answer.Description</h5>
+
+}
